@@ -7,6 +7,6 @@
 2. Make it executable: `chmod +x web.sh`
 3. Modify your `.zshrc`
 ```sh
-alias web='. $HOME/web.sh'
+alias web='~/web.sh'
 ```
 
