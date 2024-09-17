@@ -13,7 +13,14 @@ if ! git remote -v | grep -qE '^\S+\s+\S+'; then
 fi
 
 REPO_URL=$(git config --get remote.origin.url)
-REPO_URL=${REPO_URL//:/\/}  # replace : with /\ in the URL
-REPO_URL=${REPO_URL/#git@/https:\/\/}  # add https:\/\/ for git@ URLs
+
+if [[ "$REPO_URL" == *"@"* ]]; then
+    # it is a ssh url
+    REPO_URL=${REPO_URL//:/\/}  # replace : with /\ in the URL
+    REPO_URL=${REPO_URL/#git@/https:\/\/}  # add https:\/\/ for git@ URLs
+else
+    # it is a https url, and does not need any further modification
+    :
+fi
 
 open -a Safari $REPO_URL
